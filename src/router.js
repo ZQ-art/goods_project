@@ -3,36 +3,35 @@ import Router from 'vue-router'
 Vue.use(Router)
 import Home from './views/Home.vue'
 const router = new Router({
-	routes:[
-		{
-			path:'/',
-			name:'home',
-			component:Home
+	routes: [{
+			path: '/',
+			name: 'home',
+			component: Home
 		},
 		{
-			path:'/grade',
-			name:'grade',
-			component:()=>import('./views/grade.vue')
+			path: '/grade',
+			name: 'grade',
+			component: () => import('./views/Grade.vue')
 		},
 		{
-			path:'/pick',
-			name:'pick',
-			component:()=>import('./views/pick/pick.vue')
+			path: '/pick',
+			name: 'pick',
+			component: () => import('./views/Pick.vue')
 		},
 		{
-			path:'/message',
-			name:'message',
-			component:()=>import('./views/message/message.vue')
+			path: '/message',
+			name: 'message',
+			component: () => import('./views/Message.vue')
 		},
 		{
-			path:'/mine',
-			name:'mine',
-			component:()=>import('./views/mine/mine.vue')
+			path: '/mine',
+			name: 'mine',
+			component: () => import('./views/Mine.vue')
 		},
 		{
-			path:'/friends',
-			name:'friends',
-			component:()=>import('./views/friends.vue')
+			path: '/friends',
+			name: 'friends',
+			component: () => import('./views/friends.vue')
 		}
 	]
 })

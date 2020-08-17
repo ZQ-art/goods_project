@@ -1,25 +1,26 @@
 <template>
   <div id="app">
-	  <router-view />
-   <!-- <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+    <router-view />
+    <MyTabbar />
+    <!-- <img alt="Vue logo" src="./assets/logo.png">
+    <HelloWorld msg="Welcome to Your Vue.js App"/>-->
   </div>
 </template>
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
+import MyTabbar from "@/components/myTabbar.vue";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
-    // HelloWorld
-  }
-}
+    MyTabbar,
+  },
+};
 </script>
 
 <style>
 #app {
-	height: 100%;
-	
+  height: 100%;
 }
 </style>
