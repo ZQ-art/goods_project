@@ -32,6 +32,7 @@ export default {
       value: 3.5,
     };
   },
+  methods: {},
 };
 </script>
 

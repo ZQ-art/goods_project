@@ -4,7 +4,7 @@ Vue.use(Router)
 import Home from './views/Home.vue'
 const router = new Router({
 	routes: [{
-			path: '/',
+			path: '/home',
 			name: 'home',
 			component: Home
 		},
@@ -32,6 +32,11 @@ const router = new Router({
 			path: '/friends',
 			name: 'friends',
 			component: () => import('./views/friends.vue')
+		},
+		{
+			path: '/auth',
+			name: 'auth',
+			component: () => import('./views/auth.vue')
 		}
 	]
 })

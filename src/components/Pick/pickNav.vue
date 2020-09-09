@@ -13,7 +13,7 @@ export default {
   name: "pickNav",
   methods: {
     onClickLeft() {
-      this.$router.push("/");
+      this.$router.push({ name: "home" });
     },
     onClickRight() {
       Toast("按钮");

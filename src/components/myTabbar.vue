@@ -1,6 +1,10 @@
 <template>
   <div id="myTabbar">
-    <van-tabbar v-model="active" @change="switchTo">
+    <van-tabbar
+      v-model="active"
+      @change="switchTo"
+      :before-change="switchCheck"
+    >
       <van-tabbar-item icon="wap-home-o" name="home">首页</van-tabbar-item>
       <van-tabbar-item icon="exchange" dot name="pick">代取</van-tabbar-item>
       <van-tabbar-item name="grade">
@@ -8,7 +12,9 @@
           <img class="dy-btn" src="../static/img/排行榜.png" />
         </template>
       </van-tabbar-item>
-      <van-tabbar-item icon="comment-o" badge="5" name="message">消息</van-tabbar-item>
+      <van-tabbar-item icon="comment-o" badge="5" name="message"
+        >消息</van-tabbar-item
+      >
       <van-tabbar-item icon="user-o" name="mine">我的</van-tabbar-item>
     </van-tabbar>
   </div>
@@ -19,12 +25,24 @@ export default {
   name: "myTabbar",
   data() {
     return {
-      active: "home",
+      active: "",
     };
   },
   methods: {
     switchTo(name) {
       this.$router.push({ name: name });
+    },
+    switchCheck() {
+      if (sessionStorage.getItem("userId") == undefined) {
+        this.$router.push({ name: "auth" });
+        this.$notify({
+          type: "warning",
+          message: "请先登录！",
+          duration: 750,
+        });
+        return false;
+      }
+      return true;
     },
   },
 };

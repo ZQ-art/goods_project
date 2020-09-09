@@ -1,20 +1,29 @@
 <template>
   <div id="app">
-    <router-view />
+    <transition name="toggle">
+      <router-view />
+    </transition>
     <MyTabbar />
-    <!-- <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>-->
   </div>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
 import MyTabbar from "@/components/myTabbar.vue";
 
 export default {
   name: "app",
+  data() {
+    return {};
+  },
   components: {
     MyTabbar,
+  },
+  mounted() {
+    if (sessionStorage.getItem("userId") != undefined) {
+      this.$router.push({ name: "home" });
+    } else {
+      this.$router.push({ name: "auth" });
+    }
   },
 };
 </script>
@@ -22,5 +31,12 @@ export default {
 <style>
 #app {
   height: 100%;
+}
+.toggle-enter {
+  transform: translateY(30px);
+  opacity: 0;
+}
+.toggle-enter-active {
+  transition: all 0.3s linear;
 }
 </style>
