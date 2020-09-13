@@ -4,11 +4,13 @@
       <router-view />
     </transition>
     <MyTabbar />
+    <OverLay />
   </div>
 </template>
 
 <script>
-import MyTabbar from "@/components/myTabbar.vue";
+import MyTabbar from "@/layout/myTabbar.vue";
+import OverLay from "@/layout/overLay.vue";
 
 export default {
   name: "app",
@@ -17,6 +19,7 @@ export default {
   },
   components: {
     MyTabbar,
+    OverLay,
   },
   mounted() {
     if (sessionStorage.getItem("userId") != undefined) {

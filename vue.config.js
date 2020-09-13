@@ -8,10 +8,11 @@ module.exports = {
             // 直接覆盖变量
             'text-color': '#111',
             'border-color': '#eee',
-            red:'#000'
+            red: '#000'
           },
         },
       },
     },
   },
+  publicPath: './'
 };
