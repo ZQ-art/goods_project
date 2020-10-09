@@ -14,5 +14,16 @@ module.exports = {
       },
     },
   },
-  publicPath: './'
+  publicPath: './',
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://192.168.1.100:8090',
+        changeOrigin: true,
+        pathRewrite: {
+          "^/api": "",
+        },
+      }
+    }
+  }
 };

@@ -22,7 +22,7 @@ export default {
     OverLay,
   },
   mounted() {
-    if (sessionStorage.getItem("userId") != undefined) {
+    if (sessionStorage.getItem("token") != undefined) {
       this.$router.push({ name: "home" });
     } else {
       this.$router.push({ name: "auth" });
@@ -33,7 +33,7 @@ export default {
 
 <style>
 #app {
-  height: 100%;
+  height: 100vh;
 }
 .toggle-enter {
   transform: translateY(30px);

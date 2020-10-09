@@ -1,5 +1,5 @@
 <template>
-  <div id="home">
+  <div id="pick">
     <PickNav />
     <van-tabs v-model="activeName">
       <van-tab title="悬赏代取" name="OfferReward">
@@ -33,11 +33,16 @@ export default {
 };
 </script>
 
-<style scoped>
-.item .dy-btn {
-  width: 65px;
-  height: 45px;
-  padding: 2px;
-  border-radius: 50%;
+<style lang="scss" scoped>
+#pick {
+  .van-tabs {
+    >>> .header {
+      font-size: 22px;
+    }
+    >>> .van-button{
+      display: block;
+      margin: 10px auto;
+    }
+  }
 }
 </style>

@@ -1,19 +1,29 @@
 <template>
   <div id="auth">
-    <transition name="authToggle">
+    <transition :name="leftOrRight">
       <div class="login" v-if="loginPage" key="login">
         <header>优购 Goods</header>
         <p>为您提供最优质的购物体验！</p>
         <div class="warp">
-          <van-field v-model="loginData.userName" label="用户名" placeholder="请输入用户名"></van-field>
-          <van-field v-model="loginData.password" label="密码" placeholder="请输入密码" type="password"></van-field>
+          <van-field
+            v-model="loginData.userName"
+            label="用户名"
+            placeholder="请输入用户名"
+          ></van-field>
+          <van-field
+            v-model="loginData.password"
+            label="密码"
+            placeholder="请输入密码"
+            type="password"
+          ></van-field>
           <van-button
             type="primary"
             class="first"
             color="linear-gradient(to right, #4bb0ff, #6149f6)"
             size="large"
             @click="login"
-          >登录</van-button>
+            >登录</van-button
+          >
           <a class="last" size="small" @click="register">立即注册>></a>
         </div>
       </div>
@@ -21,7 +31,11 @@
         <header>优购 Goods</header>
         <p>注册优购 畅享生活</p>
         <div class="warp">
-          <van-field v-model="registerData.userName" label="用户名" placeholder="请输入用户名"></van-field>
+          <van-field
+            v-model="registerData.userName"
+            label="用户名"
+            placeholder="请输入用户名"
+          ></van-field>
           <van-field
             v-model="registerData.password"
             label="密码"
@@ -38,7 +52,11 @@
             @change="checkPasswordFunction"
             :error-message="checkPassword.message"
           ></van-field>
-          <van-field v-model="registerData.phoneNumber" label="手机号" placeholder="请输入手机号"></van-field>
+          <van-field
+            v-model="registerData.phoneNumber"
+            label="手机号"
+            placeholder="请输入手机号"
+          ></van-field>
           <van-row>
             <van-col :span="18">
               <van-field
@@ -56,7 +74,9 @@
                 type="primary"
                 @click="requestVertify"
                 :loading="vertify.waiting"
-              >发送验证码</van-button>
+                color="linear-gradient(to right, #4bb0ff, #6149f6)"
+                >发送验证码</van-button
+              >
             </van-col>
           </van-row>
           <van-button
@@ -65,8 +85,11 @@
             size="large"
             color="linear-gradient(to right, #4bb0ff, #6149f6)"
             @click="register"
-          >注册</van-button>
-          <a class="last" size="small" @click="login">&lt;&lt;已有账号，立即登录</a>
+            >注册</van-button
+          >
+          <a class="last" size="small" @click="login"
+            >&lt;&lt;已有账号，立即登录</a
+          >
         </div>
       </div>
     </transition>
@@ -111,35 +134,7 @@ export default {
         this.loginPage = true;
       } else {
         if (this.checkValue(this.loginData)) {
-          //显示遮罩层
-          this.$store.commit("changeLayShow");
-          authApi
-            .loginApi(config.severAddress + "/signIn", this.loginData)
-            .then((res) => {
-              if (res.data.status) {
-                //登录成功
-                this.$notify({
-                  type: "success",
-                  message: res.data.msg,
-                  duration: "1500",
-                });
-                this.$router.push({
-                  name: "home",
-                });
-                sessionStorage.setItem("userId", this.loginData.userName);
-              } else {
-                //失败
-                this.$notify({
-                  type: "danger",
-                  message: res.data.msg,
-                  duration: "1500",
-                });
-              }
-              //关闭遮罩层
-              setTimeout(() => {
-                this.$store.commit("changeLayShow");
-              }, 500);
-            });
+          authApi.loginApi(this.loginData, this);
         }
       }
     },
@@ -163,37 +158,7 @@ export default {
           return;
         }
         if (this.checkValue(this.registerData)) {
-          //显示遮罩层
-          this.$store.commit("changeLayShow");
-          authApi
-            .registerApi(config.severAddress + "/signUp", this.registerData)
-            .then((res) => {
-              if (res.data.status) {
-                //注册成功
-                this.$notify({
-                  type: "success",
-                  message: res.data.msg,
-                  duration: "1500",
-                });
-                //跳转登录
-                this.loginPage = true;
-                //清除数据
-                this.clearValue(this.registerData);
-                this.vertify.input = "";
-                this.vertify.result = "";
-              } else {
-                //失败
-                this.$notify({
-                  type: "danger",
-                  message: res.data.msg,
-                  duration: "1500",
-                });
-              }
-              //关闭遮罩层
-              setTimeout(() => {
-                this.$store.commit("changeLayShow");
-              }, 500);
-            });
+          authApi.registerApi(this.registerData, this);
         }
       }
     },
@@ -235,24 +200,7 @@ export default {
     requestVertify() {
       if (this.checkPhoneNumber) {
         this.vertify.waiting = true;
-        authApi
-          .phoneApi(
-            config.severAddress + "/send/" + this.registerData.phoneNumber
-          )
-          .then((res) => {
-            if (res.data.status) {
-              this.vertify.result = res.data.msg;
-            }
-            //防止短时间重复发送
-            this.$notify({
-              type: "success",
-              message: "60秒后可以再次发送",
-              duration: 1500,
-            });
-            setTimeout(() => {
-              this.vertify.waiting = false;
-            }, 55000);
-          });
+        authApi.phoneApi(this.registerData.phoneNumber, this);
       } else {
         this.$notify({
           type: "warning",
@@ -276,6 +224,10 @@ export default {
     //检查手机号是否正确
     checkPhoneNumber() {
       return /^1[0-9]{10}$/.test(this.registerData.phoneNumber);
+    },
+    //左右滑动动画
+    leftOrRight() {
+      return this.loginPage ? "rightToggle" : "leftToggle";
     },
   },
 };
@@ -355,15 +307,21 @@ export default {
       }
       .sendVertify {
         width: 100%;
+        font-size: 12px;
       }
     }
   }
-  .authToggle-enter {
-    transform: translateY(30px);
+  .leftToggle-enter {
+    transform: translateX(50px);
     opacity: 0;
   }
-  .authToggle-enter-active {
+  .leftToggle-enter-active,
+  .rightToggle-enter-active {
     transition: all 0.3s ease-in;
+  }
+  .rightToggle-enter {
+    transform: translateX(-50px);
+    opacity: 0;
   }
 }
 </style>

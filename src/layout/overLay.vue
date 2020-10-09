@@ -14,12 +14,13 @@ export default {
 
 <style lang="scss" scoped>
 #lay {
-  .loading {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%);
-    transform: translateY(-50%);
+  .van-overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: fixed;
+    z-index: 9999;
   }
 }
 </style>

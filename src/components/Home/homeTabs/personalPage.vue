@@ -1,12 +1,12 @@
 <template>
   <div id="personalPage">
     <div class="info">
-      <img src="../../../static/img/u=7.jpg" alt />
+      <img :src="imgUrl" alt />
       <van-button color="linear-gradient(to right, #f7c2ce,#f295aa)" style="opacity: .7;">My Goods</van-button>
       <van-button color="linear-gradient(to right, #f7c2ce,#f295aa)" style="opacity: .7;">我的收藏</van-button>
     </div>
     <div class="des">
-      <h2>OT.Ter</h2>
+      <h2>用户名：{{userId}}</h2>
       <span>id：20195524</span>
       <p>质量很好，非常实用，节省空间，商家服务态度好! 安利一波~</p>
       <img src="../../../static/img/book2.jpg" alt />
@@ -30,9 +30,14 @@ export default {
   data() {
     return {
       value: 3.5,
+      userId:sessionStorage.getItem('userId'),
+      imgUrl:this.$store.state.imgUrl
     };
   },
   methods: {},
+  mounted(){
+    this.imgUrl=this.$store.state.imgUrl
+  }
 };
 </script>
 

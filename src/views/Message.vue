@@ -1,37 +1,23 @@
 <template>
   <div id="message">
     <MessageNav />
-    <MessageHeader />
-    <van-divider content-position="center">消息列表</van-divider>
-    <MessageList />
+    <MessageMain />
   </div>
 </template>
 
 <script>
 import MessageNav from "../components/Message/messageNav";
-import MessageHeader from "../components/Message/messageHeader";
-import MessageList from "../components/Message/messageList";
+import MessageMain from "../components/Message/messageMain";
 
 export default {
   data() {
-    return {
-      isLoading: false,
-    };
+    return {};
   },
   name: "message",
-  methods: {
-    onRefresh() {
-      setTimeout(() => {
-        Toast("刷新成功");
-        this.isLoading = false;
-        // this.count++;
-      }, 1000);
-    },
-  },
+  methods: {},
   components: {
     MessageNav,
-    MessageHeader,
-    MessageList,
+    MessageMain,
   },
 };
 </script>

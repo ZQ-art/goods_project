@@ -1,3 +1,5 @@
 {
-  "severAddress": "http://cn-fs-dx.sakurafrp.com:14729/goods"
+  "severAddress": "/api/goods",
+  "webSocket": "/api",
+  "fileUpload":"/api/oss"
 }
